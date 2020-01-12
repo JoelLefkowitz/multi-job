@@ -9,6 +9,9 @@ class Script:
         self.params = params
         self.command = command
 
+    def __str__(self):
+        return f"Script: {self.name}"
+    
     def run(self, check, quiet):
         if self.command:
             cmd = sub_to_exec(self.command, self.params)
@@ -18,7 +21,7 @@ class Script:
                 subprocess.run(cmd, shell=False)
         elif self.path:
             if not quiet:
-                print(f"Call {self.path} with {self.params}")
+                print(f"Calling {self.path} with {self.params}")
             if not check:
                 module = __import__(self.path)
                 getattr(module, "main")(**self.params)
@@ -30,10 +33,24 @@ class Job(Script):
         self.targets = targets
         self.skips = skips
 
-    def run(self, check, quiet, project):
-        if not quiet:
-            print(f"Running in: {project.name}")
-        super().run(check, quiet)
+    def __str__(self):
+        return f"Job: {self.name}"
+
+    def run(self, check, quiet, path):
+        if self.command:
+            
+            cmd = sub_to_exec(self.command, self.params)
+            if not quiet:
+                print(f"Running command: {cmd} in {path}")
+            if not check:
+                subprocess.run(cmd, shell=False, cwd=path)
+        
+        elif self.path:
+            if not quiet:
+                print(f"Calling {self.path} with path {path} and {self.params}")
+            if not check:
+                module = __import__(self.path)
+                getattr(module, "main")(path, excludes, **self.params)
 
 
 class Project:
@@ -46,6 +63,9 @@ class Project:
         self.excludes = excludes
         self.target_by = target_by
         self.skip_by = skip_by
+
+    def __str__(self):
+        return f"Project: {self.name}"
 
 
 def compatable(task, project):

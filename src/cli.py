@@ -1,11 +1,11 @@
-import sys 
+import sys
 
 
 def main(scripts, jobs):
     interface = "Usage:"
     exec_path = " ".join(sys.argv[:2])
     for name, params in [(i.name, i.params) for i in scripts + jobs]:
-        interface += f"\n {exec_path} {name} {fmt(params)} [--quiet --check]"
+        interface += f"\n {exec_path} {name} {fmt(params) if params else ''} [--quiet --check]"
     return interface
 
 
