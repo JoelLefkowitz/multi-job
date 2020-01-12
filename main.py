@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+import sys
 import cli
 import parser
 from docopt import docopt
@@ -5,7 +7,7 @@ from utils import override
 from models import Script, Job, compatable
 
 
-def main(path="config.yml"):
+def main(path):
     scripts, jobs, projects = parser.main(path)
     interface = cli.main(scripts, jobs)
     arguments = docopt(interface)
@@ -28,4 +30,4 @@ def main(path="config.yml"):
 
 
 if __name__ == "__main__":
-    main(path="./example.yml")
+    main(sys.argv[1])
