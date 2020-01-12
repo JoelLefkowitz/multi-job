@@ -1,5 +1,5 @@
-import re
 import subprocess
+from utils import sub_to_exec
 
 
 class Script:
@@ -11,14 +11,7 @@ class Script:
 
     def run(self, check, quiet):
         if self.command:
-            cmd = re.sub(
-                "<.+?>",
-                lambda x: self.params[
-                    x.group(0).translate(str.maketrans({"<": "", ">": ""}))
-                ],
-                self.command,
-            )
-            cmd = cmd.split(' ')
+            cmd = sub_to_exec(self.command, self.params)
             if not quiet:
                 print(f"Running command: {cmd}")
             if not check:
@@ -28,7 +21,7 @@ class Script:
                 print(f"Call {self.path} with {self.params}")
             if not check:
                 module = __import__(self.path)
-                getattr(module, 'main')(**self.params)
+                getattr(module, "main")(**self.params)
 
 
 class Job(Script):
@@ -53,3 +46,12 @@ class Project:
         self.excludes = excludes
         self.target_by = target_by
         self.skip_by = skip_by
+
+
+def compatable(task, project):
+    return (
+        (not task.targets or project.name in task.targets)
+        and (not task.skips or project not in task.skips)
+        and (not project.target_by or task.name in project.target_by)
+        and (not project.skip_by or task.name not in project.skip_by)
+    )

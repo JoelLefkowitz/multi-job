@@ -1,7 +1,8 @@
 import cli
 import parser
-from models import Script, Job
 from docopt import docopt
+from utils import override
+from models import Script, Job, compatable
 
 
 def main(path="config.yml"):
@@ -11,26 +12,16 @@ def main(path="config.yml"):
 
     check, quiet, = arguments["--check"], arguments["--quiet"]
     task = [i for i in scripts + jobs if arguments[i.name]].pop()
-    task.params = {
-        k: arguments[f"<{k}>"] if arguments[f"<{k}>"] else v
-        for (k, v) in task.params.items()
-    }
+    task.params = override(task.params, arguments, lambda x: f"<{x}>")
 
     if isinstance(task, Job):
-        for p in projects:
-            if (
-                (not task.targets or p.name in task.targets)
-                and (not task.skips or p not in task.skips)
-                and (not p.target_by or task.name in p.target_by)
-                and (not p.skip_by or task.name not in p.skip_by)
-            ):
-                params_copy = task.params.copy()
-                task.params = {
-                    k: p.params[k] if p.params and p.params[k] else v
-                    for (k, v) in task.params.items()
-                }
-                task.run(check, quiet, p)
-                task.params = params_copy
+        for project in [p for p in projects if compatable(task, p)]:
+            params_copy = task.params.copy()
+            if project.params:
+                task.params = override(task.params, project.params)
+
+            task.run(check, quiet, project)
+            task.params = params_copy
 
     elif isinstance(task, Script):
         task.run(check, quiet)

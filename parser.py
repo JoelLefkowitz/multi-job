@@ -12,29 +12,9 @@ def main(path):
     # Scripts, jobs and projects must not be empty
     pass
 
-    scripts = (
-        [
-            Script(**{**script, "name": name})
-            for name, script in config["scripts"].items()
-        ]
-        if "scripts" in config.keys()
-        else []
-    )
-
-    jobs = (
-        [Job(**{**job, "name": name}) for name, job in config["jobs"].items()]
-        if "jobs" in config.keys()
-        else []
-    )
-
-    projects = (
-        [
-            Project(**{**project, "name": name})
-            for name, project in config["projects"].items()
-        ]
-        if "projects" in config.keys()
-        else []
-    )
+    scripts = config_factory(Script, "scripts", config)
+    jobs = config_factory(Job, "jobs", config)
+    projects = config_factory(Project, "projects", config)
 
     # Scripts, jobs, projects and arguments must all be unique
     pass
@@ -58,3 +38,14 @@ def main(path):
     pass
 
     return scripts, jobs, projects
+
+
+def config_factory(cls, tag, config):
+    return (
+        [
+            cls(**{**obj, "name": name})
+            for name, obj in config[tag].items()
+        ]
+        if tag in config.keys()
+        else []
+    )
