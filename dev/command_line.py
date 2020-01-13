@@ -1,17 +1,15 @@
-#!/usr/bin/env python3
-import os, sys
+import sys
+from dev.parse import parse
+from dev.cli import generate
 from docopt import docopt
-
-sys.path.insert(0, os.path.abspath('./dev/src'))
-import cli
-from parser import parse
-from utils import override
-from models import Script, Job, compatable
+from dev.utils import override
+from dev.models import Script, Job, compatable
 
 
-def main(path):
+def main(path=sys.argv[1]):
+    print(sys.argv)
     scripts, jobs, projects = parse(path)
-    interface = cli.main(scripts, jobs)
+    interface = generate(scripts, jobs)
     arguments = docopt(interface)
 
     # TODO Check this doesn't break when an argument matches a job name
@@ -31,7 +29,3 @@ def main(path):
 
     elif isinstance(task, Script):
         task.run(check, quiet)
-
-
-if __name__ == "__main__":
-    main(sys.argv[1])

@@ -1,9 +1,9 @@
 import re
 from ruamel import yaml
 from numpy import concatenate
-from utils import remove_chars
-from models import Script, Job, Project
-from exceptions import ParserValidationError
+from dev.utils import remove_chars
+from dev.models import Script, Job, Project
+from dev.exceptions import ParserValidationError
 
 
 def parse(path):

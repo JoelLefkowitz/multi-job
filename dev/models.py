@@ -1,5 +1,5 @@
 import subprocess
-from utils import sub_to_exec
+from dev.utils import sub_to_exec
 
 
 class Script:
@@ -11,7 +11,7 @@ class Script:
 
     def __str__(self):
         return f"Script: {self.name}"
-    
+
     def run(self, check, quiet):
         if self.command:
             cmd = sub_to_exec(self.command, self.params)
@@ -21,7 +21,7 @@ class Script:
                 subprocess.run(cmd, shell=False)
         elif self.path:
             if not quiet:
-                print(f"Calling {self.path} with {self.params}")
+                print(f"Calling {self.path} with {self.params or 'no parameters'}")
             if not check:
                 module = __import__(self.path)
                 getattr(module, "main")(**self.params)
@@ -47,7 +47,7 @@ class Job(Script):
         
         elif self.path:
             if not quiet:
-                print(f"Calling {self.path} with path {path} and {self.params}")
+                print(f"Calling {self.path} with path {path} and {self.params or 'no parameters'}")
             if not check:
                 module = __import__(self.path)
                 getattr(module, "main")(path, excludes, **self.params)
