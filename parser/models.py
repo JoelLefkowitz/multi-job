@@ -42,7 +42,7 @@ class Job(Base):
         self.target = targets
         self.skips = skips
     
-    #TODO Fix run
+    # TODO Fix run
     def run(self, cli_params: List[Mapping[str, str]], project_params: List[Mapping[str, str]], project_path: str) ->  Subprocess:
         params = self.parameters.update(cli_params).update(project_params)
         if self.command:

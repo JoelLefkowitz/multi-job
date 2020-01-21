@@ -4,7 +4,7 @@ from docopt import docopt # type: ignore
 from typing import List
 from parser.models import Job, Project
 
-#TODO Write generate
+# TODO Write generate
 def generate(jobs: List[Job]) -> str:
     return "Usage:"
 
