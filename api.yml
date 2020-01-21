@@ -1,0 +1,19 @@
+jobs:
+  format:
+    function:
+      path: '../../fmt'
+      name: main
+  greet:
+    command: 'echo <str>'
+    params:
+      str: 'hello'
+
+sprojects:
+  ansible: 
+    path: "../ansible"
+    params:
+      lint:
+        str: 'blob'
+
+  database: 
+    path: "../database" 

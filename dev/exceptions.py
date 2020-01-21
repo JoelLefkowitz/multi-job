@@ -1,2 +1,0 @@
-class ParserValidationError(Exception):
-    pass
