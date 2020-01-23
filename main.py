@@ -22,8 +22,8 @@ def main(config_path: str) -> None:
     tree = validate(config_path)
     jobs, projects = build(tree, config_path)
     interface = generate(jobs)
-    arguments = docopt(interface)
-    resolve(jobs, projects, arguments)
+    cli_params = docopt(interface)
+    resolve(jobs, projects, cli_params, config_path)
 
 
 if __name__ == "__main__":

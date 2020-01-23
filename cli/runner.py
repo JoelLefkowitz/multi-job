@@ -1,9 +1,10 @@
+from os import getcwd
 from typing import List, Optional, Mapping
 from parser.models import Job, Project, Subprocess
 from parser.utils import join_paths, remove_tags, sub_to_exec
 
 
-def resolve(jobs: List[Job], projects: List[Project], cli_params: dict) -> None:
+def resolve(jobs: List[Job], projects: List[Project], cli_params: dict, config_path: str) -> None:
     plan = []
     project_dict = {project.name: project for project in projects}
 
@@ -13,7 +14,7 @@ def resolve(jobs: List[Job], projects: List[Project], cli_params: dict) -> None:
         elif job.skips:
             targets = [project_dict[name] for name in project_dict.keys() - job.skips]
         else:
-            targets = []
+            targets = [Project(name="Default", config_path=config_path, path=getcwd())]
 
         for project in targets:
             plan.append(make_process(job, cli_params, project))

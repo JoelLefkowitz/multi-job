@@ -32,8 +32,7 @@ class Subprocess:
         self.quiet = quiet
 
     def __str__(self):
-        location_str = f" in {self.cwd}" if self.cwd else None
-        return green(f"{self.call}{location_str}")
+        return green(f"{self.call} in {self.cwd}")
 
     def run(self) -> Optional[str]:
         return subprocess.run(self.call, cwd=self.cwd)
