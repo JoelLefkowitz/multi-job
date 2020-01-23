@@ -13,6 +13,7 @@ def resolve(
     config_path: str,
 ) -> None:
 
+    plan = []
     cli_params = {k: v for k, v in full_cli_params.items() if v}
     job_dict = {job.name: job for job in jobs}
     routine_dict = {routine.name: routine for routine in routines}
@@ -37,7 +38,8 @@ def resolve(
         else:
             targets = [Project(name="Default", config_path=config_path, path=getcwd())]
 
-    plan = [make_process(job, cli_params, project) for project in targets]
+        plan += [make_process(job, cli_params, project) for project in targets]
+
     output(
         plan,
         full_cli_params["--quiet"],
