@@ -2,7 +2,7 @@ import os
 import sys
 import subprocess
 from .utils import sub_to_exec
-from typing import List, Mapping, Optional
+from typing import List, Mapping, Any
 from .colours import green, blue
 
 
@@ -20,21 +20,22 @@ class Subprocess:
         self,
         call: List[str],
         cwd: str = None,
-        check: bool = False,
-        quiet: bool = False,
+        description: str = None,
         *args,
         **kwargs,
-    ):
+    ) -> None:
         super().__init__(*args, **kwargs)
         self.call = call
         self.cwd = cwd
-        self.check = check
-        self.quiet = quiet
+        self.description = description
 
-    def __str__(self):
-        return green(f"{self.call} in {self.cwd}")
+    def fmt(self, verbose) -> str:
+        if verbose:
+            return green(f"{self.call} in {self.cwd}")
+        else:
+            return green(f"{self.description} in {self.cwd}")
 
-    def run(self) -> Optional[str]:
+    def run(self) -> Any:
         return subprocess.run(self.call, cwd=self.cwd)
 
 
@@ -64,3 +65,9 @@ class Project(Base):
         super().__init__(*args, **kwargs)
         self.path = path
         self.params = params
+
+
+class Routine(Base):
+    def __init__(self, jobs: Mapping[str, str] = None, *args, **kwargs,) -> None:
+        super().__init__(*args, **kwargs)
+        self.jobs = jobs

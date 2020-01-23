@@ -20,10 +20,10 @@ def entrypoint():
 
 def main(config_path: str) -> None:
     tree = validate(config_path)
-    jobs, projects = build(tree, config_path)
-    interface = generate(jobs)
+    jobs, projects, routines = build(tree, config_path)
+    interface = generate(jobs, routines)
     cli_params = docopt(interface)
-    resolve(jobs, projects, cli_params, config_path)
+    resolve(jobs, projects, routines, cli_params, config_path)
 
 
 if __name__ == "__main__":
