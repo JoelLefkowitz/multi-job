@@ -5,9 +5,7 @@ from typing import Callable, List
 
 def sub_to_exec(string: str, params: List[str]) -> List[str]:
     cmd = re.sub(
-        "<.+?>",
-        lambda x: params[remove_chars(x.group(0), ["<", ">"])],
-        string,
+        "<.+?>", lambda x: params[remove_chars(x.group(0), ["<", ">"])], string,
     )
     return cmd.split(" ")
 
@@ -24,3 +22,12 @@ def formatted_update(a: dict, b: dict, callback: Callable[[str], str]) -> dict:
 
 def join_paths(a: str, b: str) -> str:
     return os.path.abspath(os.path.join(a, b))
+
+
+def remove_tags(string: str) -> str:
+    if string[0] == "<" and string[-1] == ">":
+        return string[1:-1]
+    elif string[:2] == "--":
+        return string[2:]
+    else:
+        return string
