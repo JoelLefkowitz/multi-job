@@ -1,0 +1,36 @@
+jobs:
+  lint:
+    command: lint <linter>
+    targets: all
+
+  fmt:
+    command: fmt <fmter>
+    context:
+      fmter: prettier
+      user: 
+      size: 1
+
+  build:
+    function: builder:main
+    context:
+      version: 0.1.0
+    skips: backend
+
+projects:
+  frontend:
+    path: ../../../../docker-droplet
+    context:
+      linter: tslint 
+
+  backend:
+    path: backend
+
+routines:
+  dev:
+    - lint
+    - fmt
+    
+  all:
+    - lint
+    - fmt
+    - build

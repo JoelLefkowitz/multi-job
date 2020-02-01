@@ -4,15 +4,16 @@ with open("README.md", "r") as f:
     long_description = f.read()
 
 s = setup(
-    name="dev",
-    version="0.5.1",
+    name="multi-job",
+    version="0.7.0",
     license="MIT",
-    description="Job runner",
+    description="Job runner for multifaceted projects",
     long_description=long_description,
-    url="https://github.com/JoelLefkowitz/dev",
+    long_description_content_type="text/markdown",
+    url="https://github.com/JoelLefkowitz/multi-job",
     packages=find_packages(),
-    # install_requires=['ruamel.yaml>=16.5.0', 'numpy>=1.18.0', 'docopts>=0.6.11'],
-    entry_points={"console_scripts": ["dev=dev.main:entrypoint"]},
+    install_requires=["ruamel.yaml>=0.16.5", "docopts>=0.6.1"],
+    entry_points={"console_scripts": ["multi-job=main:entrypoint"]},
     python_requires=">= 3.6",
     author="Joel Lefkowitz",
     author_email="joellefkowitz@hotmail.com",
