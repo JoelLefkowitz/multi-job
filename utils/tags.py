@@ -66,7 +66,7 @@ def substitute_exec_form(
         lambda x: get_context(strip_tags(x.group(0)), context, description),
         string,
     )
-    return str(raw.split(" "))
+    return raw.split(" ")
 
 
 def get_context(param: str, context: Mapping[str, str], description: str):

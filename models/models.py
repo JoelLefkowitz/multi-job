@@ -15,12 +15,15 @@ T = TypeVar("T")
 
 @dataclass
 class Process:
-    call: str
+    call: Union[str, List[str]]
     path: str
     alias: str
 
     def trigger(self) -> CompletedProcess:
         return run(self.call, cwd=self.path)
+
+    def call_repr(self, vebose: bool) -> str:
+        return str(self.call) if verbose else self.alias
 
     def __str__(self):
         return self.alias
