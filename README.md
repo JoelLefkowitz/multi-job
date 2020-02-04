@@ -11,22 +11,22 @@ Job runner for multifaceted projects
 | Downloads  | ![pypi_downloads][pypi_downloads] |
 | Raised  | [![issues][issues]][issues_link] [![pulls][pulls]][pulls_link]  |
 
-[license]: https://img.shields.io/github/license/joellefkowitz/dev
+[license]: https://img.shields.io/github/license/joellefkowitz/multi-job
 
-[release]: https://img.shields.io/github/v/release/joellefkowitz/dev
+[release]: https://img.shields.io/github/v/release/joellefkowitz/multi-job
 
-[pypi]: https://img.shields.io/pypi/v/dev (PyPi)
-[pypi_link]: https://pypi.org/project/dev
+[pypi]: https://img.shields.io/pypi/v/multi-job (PyPi)
+[pypi_link]: https://pypi.org/project/multi-job
 
-[python_version]: https://img.shields.io/pypi/pyversions/dev
+[python_version]: https://img.shields.io/pypi/pyversions/multi-job
 
-[pypi_downloads]: https://img.shields.io/pypi/dw/dev
+[pypi_downloads]: https://img.shields.io/pypi/dw/multi-job
 
-[issues]: https://img.shields.io/github/issues/joellefkowitz/dev (Issues)
-[issues_link]: https://github.com/JoelLefkowitz/dev/issues
+[issues]: https://img.shields.io/github/issues/joellefkowitz/multi-job (Issues)
+[issues_link]: https://github.com/JoelLefkowitz/multi-job/issues
 
-[pulls]: https://img.shields.io/github/issues-pr/joellefkowitz/dev (Pull requests)
-[pulls_link]: https://github.com/JoelLefkowitz/dev/pulls  
+[pulls]: https://img.shields.io/github/issues-pr/joellefkowitz/multi-job (Pull requests)
+[pulls_link]: https://github.com/JoelLefkowitz/multi-job/pulls  
 
 ## Motivation
 
@@ -53,25 +53,22 @@ Moreover it should be easy to configure default arguments per job and project, a
 ```yml
 jobs:
   lint:
-    command: "prettier . --ignore-path <regex>"
-    params:
-      regex: "*.ts"
+    command: "prettier . --ignore-path <linter-regex>"
+    context:
+      linter-regex: "*.ts"
   format:
-    function:
-      path: "./server/management"
-      name: "main"
+    function: "./server/management:main"
     skips:
       - "app"
 
 projects:
   app:
-    path: "./app"
-    params: 
-      lint:
-        regex: "*.js"
+    path: "app/src"
+    context:
+      linter-regex: "*.js"
 
   server:
-    path: "./server"
+    path: "server/src"
 
 routines:
   dev:
@@ -80,25 +77,31 @@ routines:
 
 ```
 
-
 Finally automatic cli generation tools shouldn't need separate configuration
 
 ```bash
-$ multi-job ./config.yml
+$ multi-job src/config.yml
 
 Usage:
-  multi-job ./config.yml lint [regex] [-vcq]
-  multi-job ./config.yml format [-vcq]
-  multi-job ./config.yml all [-vcq]
-Options:
-  -h --help     Display this screen
-  -v --verbose  Verbose output
-  -c --check    Dry run
-  -q --quiet    Silence output
+    multi-job <config_path> [options] lint [<linter-regex>]
+    multi-job <config_path> [options] format
+    multi-job <config_path> [options] dev
+```
 
-$ multi-job ./config.yml lint --check --verbose
+```bash
+$ multi-job src/config.yml lint --check
 
-Checking job lint...
+⚡ Multi Job ⚡
+Plan:
+Job: lint, project: Local
+```
+
+```bash
+$ multi-job src/config.yml lint --check --verbose
+
+⚡ Multi Job ⚡
+Plan:
+['prettier', '.', '--ignore-path', '']
 ```
 
 
@@ -125,6 +128,18 @@ Multi-job is behaviour driven. Every desired behaviour and every validation rule
 ### Further docs
 
 For full documentation visit our [wiki](https://github.com/JoelLefkowitz/multi-job/wiki).
+
+## Development roadmap
+
+Work remaining for release 1.0.0:
+
+* Validation functions
+
+* Unittests
+
+* Complete docstrings
+
+* Wiki pages
 
 ## Contributing
 

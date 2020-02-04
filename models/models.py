@@ -13,7 +13,6 @@ from typing import List, Type, TypeVar, Union
 
 T = TypeVar("T")
 
-
 @dataclass
 class Process:
     call: str

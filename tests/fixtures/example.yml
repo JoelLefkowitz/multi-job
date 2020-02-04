@@ -1,0 +1,23 @@
+jobs:
+  lint:
+    command: "prettier . --ignore-path <linter-regex>"
+    context:
+      linter-regex: "*.ts"
+  format:
+    function: "./server/management:main"
+    skips:
+      - "app"
+
+projects:
+  app:
+    path: "app/src"
+    context:
+      linter-regex: "*.js"
+
+  server:
+    path: "server/src"
+
+routines:
+  dev:
+    - lint
+    - format

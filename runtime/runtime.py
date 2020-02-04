@@ -24,6 +24,5 @@ def run(processes: List[Process], options: Mapping[str, bool]) -> None:
             print(blue("Running: ") + (process.call if verbose else process.alias))
 
         output = process.trigger()
-
         if not silent:
             print(output)
