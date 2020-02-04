@@ -1,6 +1,6 @@
 from operator import itemgetter
 from typing import List, Mapping
-from models.models import Process
+from models.processes import Process
 from utils.colours import green, blue
 from utils.emojis import ZAP, MUSHROOM, TOPHAT
 

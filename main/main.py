@@ -8,7 +8,9 @@ from sys import argv
 from os import getcwd, path
 from utils.strings import join_paths
 from validation.validation import validate
-from models.models import Job, Project, Routine
+from models.jobs import Job
+from models.projects import Project
+from models.routines import Routine
 from models.exceptions import ConfigNotGiven
 from interface.interface import interface_factory
 from interface.interceptors import intercept
@@ -38,7 +40,7 @@ def main(config_path: str) -> None:
         config_path (str): path of the configuration file
     """
     config = validate(config_path)
-    jobs = Job.from_config(config["jobs"])
+    jobs = Job.from_config(config["projects"])
     projects = Project.from_config(config["projects"])
     routines = Routine.from_config(config["routines"])
     interface = interface_factory(jobs, projects, routines)

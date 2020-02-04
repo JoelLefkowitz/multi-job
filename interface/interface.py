@@ -1,6 +1,8 @@
 from typing import List
-from models.models import Job, Project, Routine
-from .formatters import fmt_options, fmt_uses
+from models.jobs import Job
+from models.projects import Project
+from models.routines import Routine
+from interface.formatters import fmt_options, fmt_uses
 
 
 def interface_factory(
