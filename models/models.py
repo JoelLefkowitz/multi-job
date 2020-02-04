@@ -22,8 +22,8 @@ class Process:
     def trigger(self) -> CompletedProcess:
         return run(self.call, cwd=self.path)
 
-    def call_repr(self, vebose: bool) -> str:
-        return str(self.call) if verbose else self.alias
+    def call_repr(self, verbose: bool) -> str:
+        return str(self.call) + ", cwd=" + self.path if verbose else self.alias
 
     def __str__(self):
         return self.alias
