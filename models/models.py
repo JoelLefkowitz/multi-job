@@ -53,11 +53,11 @@ class Job:
         matches = []
         if self.targets:
             matches = [
-                p for p in projects if p.name in self.targets or self.targets == "all"
+                p for p in projects if p.name in self.targets or self.targets == ["all"]
             ]
         elif self.skips:
             matches = [
-                p for p in projects if not (p.name in self.skips or self.skips == "all")
+                p for p in projects if not (p.name in self.skips or self.skips == ["all"])
             ]
 
         if not matches:
