@@ -2,6 +2,7 @@
 Project, Job, Routine and Subprocess classes
 """
 
+import functools
 from utils.colours import green
 from abc import ABC, abstractmethod
 from utils.strings import join_paths
@@ -12,6 +13,7 @@ from typing import List, Type, TypeVar, Union
 
 
 T = TypeVar("T")
+
 
 @dataclass
 class Process:
@@ -60,11 +62,13 @@ class Job:
             ]
         elif self.skips:
             matches = [
-                p for p in projects if not (p.name in self.skips or self.skips == ["all"])
+                p
+                for p in projects
+                if not (p.name in self.skips or self.skips == ["all"])
             ]
 
         if not matches:
-            local = Project(name="Local", path=".")
+            local = Project(name="Local", path="..")
             matches.append(local)
 
         return matches
@@ -72,7 +76,9 @@ class Job:
     def resolve_process(
         self, target: Project, context_overrides: dict, config_path: str
     ) -> Process:
-        context = dict(self.context, **context_overrides, **target.context)
+        context = functools.reduce(
+            lambda a, b: {**a, **b}, [self.context, context_overrides, target.context]
+        )
         path = target.abs_path(config_path)
         alias = f"Job: {self.name}, project: {target.name}"
         if self.command:

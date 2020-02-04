@@ -133,14 +133,15 @@ def check_top_level_names(config: Any) -> Result:
 
 
 def check_second_level_dict(config: Any) -> Result:
-    if not type(config['jobs']) is dict:
+    if not type(config["jobs"]) is dict:
         return Result(False, f"'Jobs' must be a dictionary")
-    elif not type(config['projects']) is dict:
+    elif not type(config["projects"]) is dict:
         return Result(False, f"'Projects' must be a dictionary")
-    elif not type(config['routines']) is dict:
+    elif not type(config["routines"]) is dict:
         return Result(False, f"'Routines' must be a dictionary")
     else:
         return Result(True)
+
 
 def check_third_level_dict(config: Any) -> Result:
     return Result(True)
