@@ -11,7 +11,7 @@ s = setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/JoelLefkowitz/multi-job",
-    packages=find_packages(),
+    packages=[''],
     install_requires=[
         "ruamel.yaml>=0.16.5",
         "dataclasses>=0.7",
@@ -19,7 +19,7 @@ s = setup(
         "docopts>=0.6.1",
     ],
     entry_points={
-        "console_scripts": ["multi-job=entrypoint.main:entrypoint"]
+        "console_scripts": ["multi-job=main:entrypoint"]
     },
     python_requires=">= 3.6",
     author="Joel Lefkowitz",
