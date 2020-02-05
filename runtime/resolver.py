@@ -1,4 +1,4 @@
-from typing import List, Mapping, Optional, Tuple
+from typing import List, Mapping, Tuple
 
 from models.jobs import Job
 from models.processes import Process

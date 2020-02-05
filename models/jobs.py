@@ -2,16 +2,15 @@
 Project, Job, Routine and Subprocess classes
 """
 
-import functools
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Callable, List, Union
 
 from models.processes import CommandProcess, FunctionProcess, Process
 from models.projects import Project
+from utils.dicts import override
 from utils.imports import from_path
 from utils.strings import join_paths
-from utils.dicts import override
 from utils.tags import substitute_exec_form
 
 
