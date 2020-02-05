@@ -2,6 +2,10 @@
 Validation checks to be run sequentiatlly
 """
 
+# TODO Specify overrite rules: 
+# - project > cli > job
+# - None is never used as an ovveride
+
 from dataclasses import dataclass
 from os.path import exists
 from typing import Any, Callable, NoReturn, Optional

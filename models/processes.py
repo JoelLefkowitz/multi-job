@@ -40,8 +40,8 @@ class FunctionProcess(Process):
     context: dict
 
     def trigger(self) -> str:
-        return self.function(self.context)
+        return self.function(self.path, self.context)
 
     @property
     def raw(self) -> str:
-        return f"{self.function} from {self.path} with context arg: {self.context}"
+        return f"{self.function} with path arg: {self.path} and context arg: {self.context}"

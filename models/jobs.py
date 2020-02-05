@@ -9,8 +9,9 @@ from typing import Any, Callable, List, Union
 
 from models.processes import CommandProcess, FunctionProcess, Process
 from models.projects import Project
-from utils.strings import join_paths
 from utils.imports import from_path
+from utils.strings import join_paths
+from utils.dicts import override
 from utils.tags import substitute_exec_form
 
 
@@ -43,9 +44,7 @@ class Job(ABC):
     def resolve_process(
         self, target: Project, context_overrides: dict, config_path: str
     ) -> Process:
-        context = functools.reduce(
-            lambda a, b: {**a, **b}, [self.context, context_overrides, target.context]
-        )
+        context = override([self.context, context_overrides, target.context])
         path = target.abs_path(config_path)
         alias = f"Job: {self.name}, project: {target.name}"
         return self.make_process(context, path, alias, config_path)
