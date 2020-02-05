@@ -74,6 +74,16 @@ class CommandJob(Job):
 
 
 @dataclass
+class ScriptJob(Job):
+    script: str = ""
+    def make_process(
+        self, context: dict, path: str, alias: str, config_path: str
+    ) -> Process:
+        call = join_paths(config_path, script)
+        return CommandProcess(call=call, path=path, alias=alias)
+
+
+@dataclass
 class FunctionJob(Job):
     function: str = ""
 
