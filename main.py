@@ -4,18 +4,19 @@
 Entrypoint for multi-job
 """
 
-from sys import argv
 from os import getcwd, path
-from utils.strings import join_paths
-from validation.validation import validate
+from sys import argv
+
+from interface.interceptors import intercept
+from interface.interface import interface_factory
+from models.exceptions import ConfigNotGiven
 from models.jobs import Job
 from models.projects import Project
 from models.routines import Routine
-from models.exceptions import ConfigNotGiven
-from interface.interface import interface_factory
-from interface.interceptors import intercept
 from runtime.resolver import resolve
 from runtime.runtime import run
+from utils.strings import join_paths
+from validation.validation import validate
 
 
 def entrypoint() -> None:
@@ -40,7 +41,7 @@ def main(config_path: str) -> None:
         config_path (str): path of the configuration file
     """
     config = validate(config_path)
-    jobs = Job.from_config(config["projects"])
+    jobs = Job.from_config(config["jobs"])
     projects = Project.from_config(config["projects"])
     routines = Routine.from_config(config["routines"])
     interface = interface_factory(jobs, projects, routines)

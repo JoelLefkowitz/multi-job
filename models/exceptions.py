@@ -1,8 +1,8 @@
 """
 Multi-job exceptions
 """
-from utils.emojis import FIRE
 from utils.colours import fail
+from utils.emojis import FIRE
 
 
 class PrettyException(Exception):

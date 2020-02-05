@@ -1,9 +1,11 @@
-
 from dataclasses import dataclass, field
+from typing import List, Type, TypeVar
+
 from utils.strings import join_paths
 
-from typing import List, Type, TypeVar
 T = TypeVar("T")
+
+
 @dataclass
 class Project:
     name: str

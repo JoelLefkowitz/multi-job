@@ -4,6 +4,7 @@ Utility methods for '<element>' style tags
 
 import re
 from typing import List, Mapping
+
 from models.exceptions import ArgumentMissing
 
 

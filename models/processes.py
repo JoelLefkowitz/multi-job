@@ -1,10 +1,8 @@
-
-from utils.colours import green
 from abc import ABC, abstractmethod, abstractproperty
-from subprocess import run, CompletedProcess
+from dataclasses import dataclass
+from subprocess import run
 from typing import Callable
 
-from dataclasses import dataclass
 
 @dataclass
 class Process(ABC):
@@ -23,6 +21,7 @@ class Process(ABC):
         return self.raw if verbose else self.alias
 
 
+@dataclass
 class CommandProcess(Process):
     call: str
 
@@ -30,16 +29,19 @@ class CommandProcess(Process):
         output = run(self.call, cwd=self.path)
         return str(output)
 
+    @property
     def raw(self) -> str:
         return f"{self.call} in {self.path}"
 
 
+@dataclass
 class FunctionProcess(Process):
     function: Callable
     context: dict
 
     def trigger(self) -> str:
-        return callablle(context)
+        return self.function(self.context)
 
+    @property
     def raw(self) -> str:
-        return f"{self.function} from {self.path} with context arg: {context}"
+        return f"{self.function} from {self.path} with context arg: {self.context}"

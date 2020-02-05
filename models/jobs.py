@@ -3,13 +3,16 @@ Project, Job, Routine and Subprocess classes
 """
 
 import functools
-from importlib import import_module
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from utils.tags import substitute_exec_form
-from typing import List, Union, Callable
+from typing import Any, Callable, List, Union
+
+from models.processes import CommandProcess, FunctionProcess, Process
 from models.projects import Project
-from models.processes import CommandProcess, FunctionProcess
+from utils.strings import join_paths
+from utils.imports import from_path
+from utils.tags import substitute_exec_form
+
 
 @dataclass
 class Job(ABC):
@@ -45,31 +48,45 @@ class Job(ABC):
         )
         path = target.abs_path(config_path)
         alias = f"Job: {self.name}, project: {target.name}"
-        return self.make_process(context, path, alias)
+        return self.make_process(context, path, alias, config_path)
 
     @abstractmethod
-    def make_process(self, context: dict, path: str, alias: str) -> Process:
+    def make_process(
+        self, context: dict, path: str, alias: str, config_path: str
+    ) -> Process:
         pass
 
     @staticmethod
-    def from_config(dct: dict) -> List[T]:
-        return [CommandJob(name=k, **v) if "command" in v else FunctionJob(name=k, **v) for k, v in dct.items()]
-        
+    def from_config(dct: dict) -> List[Any]:
+        return [
+            CommandJob(name=k, **v) if "command" in v else FunctionJob(name=k, **v)
+            for k, v in dct.items()
+        ]
+
 
 @dataclass
 class CommandJob(Job):
-    command: str
+    command: str = ""
 
-    def make_process(self, context: dict, path: str, alias: str) -> Process:
+    def make_process(
+        self, context: dict, path: str, alias: str, config_path: str
+    ) -> Process:
         call = substitute_exec_form(self.command, context, alias)
-        return CommandProcess(call, path, alias)
+        return CommandProcess(call=call, path=path, alias=alias)
 
 
 @dataclass
 class FunctionJob(Job):
-    function: str
+    function: str = ""
 
-    def make_process(self, context: dict, path: str, alias: str) -> Process:
+    def get_function(self, config_path: str) -> Callable:
         module_path, funct_name = str.rsplit(self.function, ":", 1)
-        funct = getattr(import_module(module_path), funct_name)
-        return FunctionProcess(funct, context, path, alias)
+        abs_module_path = join_paths(config_path, module_path)
+        module = from_path(abs_module_path)
+        return getattr(module, funct_name)
+
+    def make_process(
+        self, context: dict, path: str, alias: str, config_path: str
+    ) -> Process:
+        funct = self.get_function(config_path)
+        return FunctionProcess(function=funct, context=context, path=path, alias=alias)

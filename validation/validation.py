@@ -2,11 +2,13 @@
 Validation checks to be run sequentiatlly
 """
 
-import ruamel.yaml  # type: ignore
-from os.path import exists
 from dataclasses import dataclass
+from os.path import exists
+from typing import Any, Callable, NoReturn, Optional
+
+import ruamel.yaml  # type: ignore
+
 from models.exceptions import ParserValidationError
-from typing import Any, Callable, Optional, NoReturn
 
 
 @dataclass

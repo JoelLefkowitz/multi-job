@@ -1,8 +1,9 @@
 from operator import itemgetter
 from typing import List, Mapping
+
 from models.processes import Process
-from utils.colours import green, blue
-from utils.emojis import ZAP, MUSHROOM, TOPHAT
+from utils.colours import blue, green
+from utils.emojis import MUSHROOM, TOPHAT, ZAP
 
 
 def run(processes: List[Process], options: Mapping[str, bool]) -> None:
@@ -14,14 +15,14 @@ def run(processes: List[Process], options: Mapping[str, bool]) -> None:
         print(ZAP + blue(" Multi Job ") + ZAP + "\nPlan:")
 
         for process in processes:
-            print(green(process.call_repr(verbose)))
+            print(green(process.show(verbose)))
 
     if check:
         return
 
     for process in processes:
         if not (quiet or silent):
-            print(blue("Running: ") + (process.call_repr(verbose)))
+            print(blue("Running: ") + process.show(verbose))
 
         output = process.trigger()
         if not silent:
