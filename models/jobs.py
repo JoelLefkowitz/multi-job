@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Callable, List, Union
 
+import sys; sys.path.append('..')
 from models.processes import CommandProcess, FunctionProcess, Process
 from models.projects import Project
 from utils.dicts import override

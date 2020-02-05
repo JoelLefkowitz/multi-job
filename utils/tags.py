@@ -5,6 +5,7 @@ Utility methods for '<element>' style tags
 import re
 from typing import List, Mapping
 
+import sys; sys.path.append('..')
 from models.exceptions import ArgumentMissing
 
 

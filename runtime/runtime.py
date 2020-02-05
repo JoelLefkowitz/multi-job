@@ -1,6 +1,7 @@
 from operator import itemgetter
 from typing import List, Mapping
 
+import sys; sys.path.append('..')
 from models.processes import Process
 from utils.colours import blue, green
 from utils.emojis import MUSHROOM, TOPHAT, ZAP

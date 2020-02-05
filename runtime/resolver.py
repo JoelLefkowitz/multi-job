@@ -1,5 +1,6 @@
 from typing import List, Mapping, Tuple
 
+import sys; sys.path.append('..')
 from models.jobs import Job
 from models.processes import Process
 from models.projects import Project

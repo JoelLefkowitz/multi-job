@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Type, TypeVar
 
-from models.jobs import Job
+from .jobs import Job
 
 T = TypeVar("T")
 

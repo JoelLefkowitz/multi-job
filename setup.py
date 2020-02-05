@@ -23,5 +23,5 @@ s = setup(
     },
     python_requires=">= 3.6",
     author="Joel Lefkowitz",
-    author_email="joellefkowitz@hotmail.com",
+    author_email="joellefkowitz@hotmail.com", 
 )
