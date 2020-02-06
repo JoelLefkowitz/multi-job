@@ -5,8 +5,7 @@ Utility methods for '<element>' style tags
 import re
 from typing import List, Mapping
 
-import sys; sys.path.append('..')
-from models.exceptions import ArgumentMissing
+from multi_job.models.exceptions import ArgumentMissing
 
 
 def is_tagged(string: str) -> bool:

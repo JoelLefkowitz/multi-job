@@ -6,13 +6,12 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Callable, List, Union
 
-import sys; sys.path.append('..')
-from models.processes import CommandProcess, FunctionProcess, Process
-from models.projects import Project
-from utils.dicts import override
-from utils.imports import from_path
-from utils.strings import join_paths
-from utils.tags import substitute_exec_form
+from multi_job.models.processes import CommandProcess, FunctionProcess, Process
+from multi_job.models.projects import Project
+from multi_job.utils.dicts import override
+from multi_job.utils.imports import from_path
+from multi_job.utils.strings import join_paths
+from multi_job.utils.tags import substitute_exec_form
 
 
 @dataclass

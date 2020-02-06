@@ -2,9 +2,8 @@
 Multi-job exceptions
 """
 
-import sys; sys.path.append('..')
-from utils.colours import fail
-from utils.emojis import FIRE
+from multi_job.utils.colours import fail
+from multi_job.utils.emojis import FIRE
 
 
 class PrettyException(Exception):

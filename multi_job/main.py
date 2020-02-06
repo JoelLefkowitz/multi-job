@@ -7,16 +7,16 @@ Entrypoint for multi-job
 from os import getcwd, path
 from sys import argv
 
-from interface.interceptors import intercept
-from interface.interface import interface_factory
-from models.exceptions import ConfigNotGiven
-from models.jobs import Job
-from models.projects import Project
-from models.routines import Routine
-from runtime.resolver import resolve
-from runtime.runtime import run
-from utils.strings import join_paths
-from validation.validation import validate
+from multi_job.interface.interceptors import intercept
+from multi_job.interface.interface import interface_factory
+from multi_job.models.exceptions import ConfigNotGiven
+from multi_job.models.jobs import Job
+from multi_job.models.projects import Project
+from multi_job.models.routines import Routine
+from multi_job.runtime.resolver import resolve
+from multi_job.runtime.runtime import run
+from multi_job.utils.strings import join_paths
+from multi_job.validation.validation import validate
 
 
 def entrypoint() -> None:

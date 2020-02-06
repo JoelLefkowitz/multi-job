@@ -1,9 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Type, TypeVar
 
-
-import sys; sys.path.append('..')
-from utils.strings import join_paths
+from multi_job.utils.strings import join_paths
 
 T = TypeVar("T")
 

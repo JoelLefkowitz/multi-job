@@ -11,8 +11,7 @@ from typing import Any, Callable, NoReturn, Optional
 
 import ruamel.yaml  # type: ignore
 
-import sys; sys.path.append('..')
-from models.exceptions import ParserValidationError
+from multi_job.models.exceptions import ParserValidationError
 
 
 @dataclass

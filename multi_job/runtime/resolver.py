@@ -1,12 +1,11 @@
 from typing import List, Mapping, Tuple
 
-import sys; sys.path.append('..')
-from models.jobs import Job
-from models.processes import Process
-from models.projects import Project
-from models.routines import Routine
-from utils.strings import has_prefix
-from utils.tags import is_tagged, strip_tags
+from multi_job.models.jobs import Job
+from multi_job.models.processes import Process
+from multi_job.models.projects import Project
+from multi_job.models.routines import Routine
+from multi_job.utils.strings import has_prefix
+from multi_job.utils.tags import is_tagged, strip_tags
 
 
 def resolve(

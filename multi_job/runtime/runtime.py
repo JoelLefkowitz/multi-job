@@ -1,10 +1,9 @@
 from operator import itemgetter
 from typing import List, Mapping
 
-import sys; sys.path.append('..')
-from models.processes import Process
-from utils.colours import blue, green
-from utils.emojis import MUSHROOM, TOPHAT, ZAP
+from multi_job.models.processes import Process
+from multi_job.utils.colours import blue, green
+from multi_job.utils.emojis import MUSHROOM, TOPHAT, ZAP
 
 
 def run(processes: List[Process], options: Mapping[str, bool]) -> None:
