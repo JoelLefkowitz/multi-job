@@ -16,6 +16,8 @@ def join_paths(a: str, b: str) -> str:
     Returns:
         str: Absolute joined path
     """
+
+    print(a, b, os.path.abspath(os.path.join(a, b)))
     return os.path.abspath(os.path.join(a, b))
 
 

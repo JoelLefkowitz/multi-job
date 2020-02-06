@@ -102,8 +102,11 @@ def validate(config_path: str) -> Any:
         for category, subcategory_entry in spec.items()
         for subcategory, check in subcategory_entry.items()
     ]
-    for validator in validators:
-        validator.validate(config)
+
+    # TODO Complete
+    # Not ready
+    # for validator in validators:
+    #     validator.validate(config)
     return config
 
 
