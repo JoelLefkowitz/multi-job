@@ -19,7 +19,7 @@ s = setup(
         "docopts>=0.6.1",
     ],
     entry_points={
-        "console_scripts": ["multi-job=multi-job.main:entrypoint"]
+        "console_scripts": ["multi-job=multi_job.main:entrypoint"]
     },
     python_requires=">= 3.6",
     author="Joel Lefkowitz",
