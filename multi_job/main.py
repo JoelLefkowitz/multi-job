@@ -41,9 +41,9 @@ def main(config_path: str) -> None:
         config_path (str): path of the configuration file
     """
     config = validate(config_path)
-    jobs = Job.from_config(config["jobs"])
-    projects = Project.from_config(config["projects"])
-    routines = Routine.from_config(config["routines"])
+    jobs = Job.from_config(config["jobs"]) if "jobs" in config else []
+    projects = Project.from_config(config["projects"]) if "projects" in config else []
+    routines = Routine.from_config(config["routines"]) if "routines" in config else []
     interface = interface_factory(jobs, projects, routines)
     cli_params = intercept(interface)
     processes, options = resolve(jobs, projects, routines, cli_params, config_path)
