@@ -1,7 +1,9 @@
 from typing import List
+
 from multi_job.models.jobs import Job
 from multi_job.models.projects import Project
 from multi_job.models.routines import Routine
+
 from .formatters import fmt_options, fmt_uses
 
 

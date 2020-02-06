@@ -57,7 +57,11 @@ class Job(ABC):
     @staticmethod
     def from_config(dct: dict) -> List[Any]:
         return [
-            CommandJob(name=k, **v) if "command" in v else FunctionJob(name=k, **v)
+            CommandJob(name=k, **v)
+            if "command" in v
+            else FunctionJob(name=k, **v)
+            if "function" in v
+            else ScriptJob(name=k, **v)
             for k, v in dct.items()
         ]
 
@@ -76,6 +80,7 @@ class CommandJob(Job):
 @dataclass
 class ScriptJob(Job):
     script: str = ""
+
     def make_process(
         self, context: dict, path: str, alias: str, config_path: str
     ) -> Process:
