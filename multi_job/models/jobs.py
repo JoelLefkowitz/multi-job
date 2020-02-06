@@ -84,7 +84,7 @@ class ScriptJob(Job):
     def make_process(
         self, context: dict, path: str, alias: str, config_path: str
     ) -> Process:
-        call = join_paths(config_path, script)
+        call = join_paths(config_path, self.script)
         return CommandProcess(call=call, path=path, alias=alias)
 
 
