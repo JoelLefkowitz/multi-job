@@ -7,7 +7,7 @@ print(find_packages())
 
 s = setup(
     name="multi-job",
-    version="0.9.14",
+    version="0.9.15",
     license="MIT",
     description="Job runner for multifaceted projects",
     long_description=long_description,
