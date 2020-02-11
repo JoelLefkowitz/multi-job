@@ -22,3 +22,7 @@ class ConfigNotGiven(PrettyException):
 
 class ArgumentMissing(PrettyException):
     pass
+
+
+class StepError(PrettyException):
+    pass
