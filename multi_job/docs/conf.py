@@ -1,10 +1,10 @@
 from os.path import abspath, dirname, join
 
-project = "docker-droplet"
+project = "multi-job"
 copyright = "2020, Joel Lefkowitz"
 author = "Joel Lefkowitz"
 
-master_doc = "docker_droplet/docs/modules"
+master_doc = "multi_job/docs/modules"
 output_dir = dirname(abspath(__file__))
 source_dir = dirname(abspath(join(__file__, "..")))
 
