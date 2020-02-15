@@ -4,7 +4,7 @@ from unittest import TestLoader, TextTestRunner
 from setuptools import find_packages, setup
 from sphinx.setup_command import BuildDoc
 
-__version__ = "0.10.4"
+__version__ = "0.10.5"
 
 
 class DocsCommand(BuildDoc):
