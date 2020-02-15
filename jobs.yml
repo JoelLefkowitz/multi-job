@@ -12,7 +12,7 @@ jobs:
         - dist
         - multi_job.egg-info
 
-  pypi_upload:
+  pypi-upload:
     function: ../multi_job/common/prod_actions/pypi_upload:main
     context:
       release_type: patch
