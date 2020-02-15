@@ -10,7 +10,7 @@ jobs:
       clean_dirs:
         - build
         - dist
-        - docker_droplet.egg-info
+        - multi_job.egg-info
 
   pypi_upload:
     function: ../multi_job/common/prod_actions/pypi_upload:main

@@ -46,6 +46,8 @@ def main(path: str, context: dict) -> str:
     stdin, stdout, stderr = ssh.exec_command(
         " ".join(["docker", "load", "-i", image_ref])
     )
-    stdin, stdout, stderr = ssh.exec_command(" ".join(["docker-compose", "up", "--force-recreate", "-d"]))
+    stdin, stdout, stderr = ssh.exec_command(
+        " ".join(["docker-compose", "up", "--force-recreate", "-d"])
+    )
     ssh.close()
     return success_msg

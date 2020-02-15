@@ -13,7 +13,7 @@ def get_from_context(keys: List[str], context: dict) -> Tuple[Any, ...]:
         except KeyError as e:
             msg = f"Missing argument caught during runtime\nMissing context: {key}\n Key error: {e}"
             raise ArgumentMissing(msg)
-    return context_values
+    return context_values.pop() if len(context_values) == 1 else context_values
 
 
 def step(process: List[str], path: str) -> None:
