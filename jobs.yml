@@ -13,7 +13,7 @@ jobs:
         - docker_droplet.egg-info
 
   pypi_upload:
-    function: ../multi_job/common/dev_actions/pypi_upload:main
+    function: ../multi_job/common/prod_actions/pypi_upload:main
 
 projects:
   multi_job:
