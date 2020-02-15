@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+   multi_job.common
    multi_job.interface
    multi_job.models
    multi_job.runtime

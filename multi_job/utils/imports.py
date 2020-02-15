@@ -11,8 +11,10 @@ def from_path(module_path: str) -> ModuleType:
         module = __import__(module_name)
     return module
 
+
 # Put common jobs package into scope
 common_dir = path.realpath(path.join(__file__, "../../common"))
+
 
 @dataclass
 class PathControl:
