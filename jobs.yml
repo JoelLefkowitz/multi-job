@@ -14,10 +14,11 @@ jobs:
 
   pypi_upload:
     function: ../multi_job/common/prod_actions/pypi_upload:main
+    context:
+      release_type: patch
+      twine_username: joellefkowitz
 
 projects:
   multi_job:
     path: ../multi_job
-    context:
-      release_type: patch
-      twine_username: joellefkowitz
+    
