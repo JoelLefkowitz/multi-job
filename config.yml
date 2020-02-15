@@ -1,22 +1,23 @@
+
 jobs:
   fmt:
     function: dev_actions/fmt:main
     targets:
-      - app 
+      - app
       - server
 
   lint:
     command: "pylint ."
     targets: all
   
-  ping:
-    command: "echo ping <pinger-name>"
-    targets: all
-    context: 
-      pinger-name: Joel
+  bump:
+    command: "bumpversion <bump-type>"
+    skips: app
+    context:
+      bump-type: patch
 
   boot:
-    script: ../boot
+    script: ../boot.bash
 
   clean:
     function: prod_actions/clean:main
@@ -25,7 +26,6 @@ jobs:
         - build
         - dist
         - multi_job.egg-info
-    skips: app
 
   pypi-upload:
     function: prod_actions/pypi_upload:main
@@ -40,9 +40,13 @@ projects:
   server:
     path: ../server
     context:
-      pinger-name: Steve
-
+      bump-type: minor
+  
+  models:
+    path: ../models
+  
 routines:
   dev:
     - fmt
     - lint
+

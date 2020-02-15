@@ -30,80 +30,86 @@ Job runner for multifaceted projects
 
 ## Motivation
 
-Configuring scripts to run accross multiple directories should be as easy as writting a yaml file:
-
-
-```yml
-jobs:
-  lint:
-    command: "prettier ."
-    targets: "all"
-
-projects:
-  app:
-    path: "./app"
-
-  server:
-    path: "./server"
-
-```
-
-Moreover it should be easy to configure default arguments per job and project, allow jobs to specify to skip projects let python functions be used for jobs and allow routines of jobs to be defined:
+Configuring jobs to run accross multiple directories should be as easy as writting a yaml file:
 
 ```yml
 jobs:
+  fmt:
+    function: dev_actions/fmt:main
+    targets:
+      - app
+      - server
+
   lint:
-    command: "prettier . --ignore-path <linter-regex>"
+    command: "pylint ."
+    targets: all
+  
+  bump:
+    command: "bumpversion <bump-type>"
+    skips: app
     context:
-      linter-regex: "*.ts"
-  format:
-    function: "./server/management:main"
-    skips:
-      - "app"
+      bump-type: patch
+
+  boot:
+    script: ../boot.bash
+
+  clean:
+    function: prod_actions/clean:main
+    context:
+      clean_dirs:
+        - build
+        - dist
+        - multi_job.egg-info
+
+  pypi-upload:
+    function: prod_actions/pypi_upload:main
+    context:
+      release_type: patch
+      twine_username: joellefkowitz
 
 projects:
   app:
-    path: "app/src"
-    context:
-      linter-regex: "*.js"
-
+    path: ../app
+  
   server:
-    path: "server/src"
-
+    path: ../server
+    context:
+      bump-type: minor
+  
+  models:
+    path: ../models
+  
 routines:
   dev:
+    - fmt
     - lint
-    - format
 
 ```
 
-Finally automatic cli generation tools shouldn't need separate configuration
+Additionally, automatic cli generation tools shouldn't need separate configuration:
 
 ```bash
-$ multi-job src/config.yml
+multi-job config.yml
 
 Usage:
-    multi-job <config_path> [options] lint [<linter-regex>]
-    multi-job <config_path> [options] format
-    multi-job <config_path> [options] dev
+    <Workspace> <config_path> [options] fmt
+    <Workspace> <config_path> [options] lint
+    <Workspace> <config_path> [options] bump [<bump-type>]
+    <Workspace> <config_path> [options] boot
+    <Workspace> <config_path> [options] clean [<clean_dirs>]
+    <Workspace> <config_path> [options] pypi-upload [<release_type> <twine_username>]
+    <Workspace> <config_path> [options] dev
 ```
 
+## Usage
+
 ```bash
-$ multi-job src/config.yml lint --check
+multi-job config.yml lint --check
 
 ⚡ Multi Job ⚡
 Plan:
 Job: lint, project: Local
 ```
-
-```bash
-$ multi-job src/config.yml lint --check --verbose
-
-⚡ Multi Job ⚡
-Plan:
-['prettier', '.', '--ignore-path', '']
-```
-
 
 ## Installing
 
@@ -112,6 +118,37 @@ Install from pypi:
 ```bash
 pip install multi-job
 ```
+
+<!-- ## Design
+
+## Validation rules
+
+* override rules
+
+* Top level structure
+* The configuration must not be blank
+* The configuration must be a dictionary
+* The configuration's top level must contain only 'jobs', 'projects' or 'routines'
+* Jobs, projects and routines' structure
+* Jobs, projects and routines must be dictionaries
+* Each job and project must be a dictionary
+* Each routine must be a list
+* Jobs, projects and routines must have unique names
+* Project fields
+* Projects must have a path field
+* A project's path field must be a string
+* A project's path field must be resolvable
+* A project context field can only be a dictionary
+* Job fields
+* Jobs must have a command xor a function field
+* A job's command field must be a string
+* A job's function field must be a string
+* A job's function field must be resolvable
+* Jobs may only have a targets xor a skips field
+* A job's targets or skips field must be a list or 'all
+* A job's targets or skips field must contain project names or 'all'
+* Routine fields
+* Routines may only contain job names or 'all' -->
 
 ## Running tests
 
@@ -125,7 +162,7 @@ python setup.py test
 
 ### What is being tested
 
-Multi-job is behaviour driven. Every desired behaviour and every validation rule has a test.
+Multi-job is behaviour driven. Desired model behaviours and validation rules are prescribed unittests.
 
 ## Docs
 
@@ -142,6 +179,12 @@ To view the generated docs visit ./build/sphinx/html/multi_job/docs/modules.html
 ```bash
 open -a "Google Chrome" ./build/sphinx/html/multi_job/docs/modules.html
 ```
+
+## Development roadmap
+
+* Finish writting validation functions &rarr; v0.11.0
+* Write unittests &rarr; v0.12.0
+* Fill in missing docstrings &rarr; v1.0.0
 
 ## Contributing
 

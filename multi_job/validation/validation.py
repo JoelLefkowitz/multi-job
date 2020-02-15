@@ -2,10 +2,6 @@
 Validation checks to be run sequentiatlly
 """
 
-# TODO Specify overwrite rules:
-# - project > cli > job
-# - None is never used as an overide
-
 from dataclasses import dataclass
 from typing import Any, Callable, NoReturn, Optional
 
@@ -103,10 +99,8 @@ def validate(config_path: str) -> Any:
         for subcategory, check in subcategory_entry.items()
     ]
 
-    # TODO Complete
-    # Not ready
-    # for validator in validators:
-    #     validator.validate(config)
+    for validator in validators:
+        validator.validate(config)
     return config
 
 
@@ -217,130 +211,3 @@ def check_jobs_targets_names(config: Any) -> Result:
 
 def check_routines_names(config: Any) -> Result:
     return Result(True)
-
-
-# def check_top_level_type(config: Any) -> Result:
-#     return Result(True) if type(config) == dict else Result(False)
-
-
-#     for top_level_name in config:
-#         specific =
-
-#         if top_level_name not in ["jobs", "projects", "routines"]:
-#             case = f"'{top_level_name}' is not 'jobs', 'projects' or 'routines'"
-#             reject(general, specific, case)
-
-#         if type(config[top_level_name]) != dict:
-#             case = f"'{top_level_name}' is not a dictionary"
-#             reject(general, specific, case)
-
-
-# def check_field_requirements(config: Any) -> None:
-#     general = "Not all fields are filled correctly"
-#     projects = config["projects"] if "projects" in config else []
-#     for project in projects:
-#         if not "path" in project or type(project["path"]) != str:
-#             specific = "Projects must have paths"
-#             case = f"{project} doesn't have a path"
-#             reject(general, specific, case)
-
-#     jobs = config["jobs"] if "jobs" in config else []
-#     for job in jobs:
-#         if not "command" in job or not "function" in job:
-#             specific = "Jobs must have a command or function reference"
-#             case = f"{job} has not got a key matching 'command' or 'function'"
-#             reject(general, specific, case)
-
-#         if "function" in job and (
-#             not "path" in job["function"] or not "path" in job["function"]
-#         ):
-#             specific = "Functions needs a name and path"
-#             case = f"{job} must have keys matching 'name' and 'path'"
-#             reject(general, specific, case)
-
-#         if "targets" in job and "skips" in job:
-#             specific = "Jobs may only have targets or skips"
-#             case = f"{job} has keys for both 'targets' and 'skips'"
-#             reject(general, specific, case)
-
-#         stipulation = (
-#             job["targets"]
-#             if "targets" in job
-#             else job["skips"]
-#             if "skips" in job
-#             else None
-#         )
-#         if stipulation and (
-#             type(stipulation) != list or not set(stipulation) <= set(jobs)
-#         ):
-#             specific = "Jobs targets and skips must be a list of project names or None"
-#             case = f"{stipulation} is not a list of job names or None"
-#             reject(general, specific, case)
-
-#     routines = config["routines"] if "routines" in config else []
-#     for routine in routines:
-#         if type(routine) != list or not set(routine) <= set(jobs):
-#             specific = "Routines must be a list of job names"
-#             case = (
-#                 f"{set(routine)} is not list or not a subset of job names: {set(job)}"
-#             )
-#             reject(general, specific, case)
-
-
-# def check_paths(config: Any) -> None:
-#     projects = config["projects"] if "projects" in config else []
-#     jobs = config["jobs"] if "jobs" in config else []
-
-#     general = "Paths must be valid"
-#     for project in projects:
-#         if not exists(project["path"]):
-#             specific = "Project paths must be resolvable"
-#             case = f"{project['path']} from {project} is not resolvable"
-#             reject(general, specific, case)
-
-#     for job in jobs:
-#         if "function" in job and not exists(job["function"]["path"]):
-#             specific = "Function paths must be resolvable"
-#             case = f"{job['function']['path']} from {job} is not resolvable"
-#             reject(general, specific, case)
-
-
-# def check_arguments(config: Any) -> None:
-#     projects = config["projects"] if "projects" in config else []
-#     jobs = config["jobs"] if "jobs" in config else []
-
-#     general = "Argument references must be valid"
-#     for job in jobs:
-#         if "params" in job and type(job["params"]) != dict:
-#             specific = "Job parameters must be a dictionary"
-#             case = f"Parameters in {job} are not a dictionary"
-#             reject(general, specific, case)
-
-#     for project in projects:
-#         if "params" in project and type(project["params"]) != dict:
-#             specific = "Project parameters must be a dictionary"
-#             case = f"Parameters in {project} are not a dictionary"
-#             reject(general, specific, case)
-
-#     for job in jobs:
-#         if "params" in job and "command" in job:
-#             for param in job["params"]:
-#                 if f"<{param}>" not in job["command"]:
-#                     specific = "Command parameters must be specified in the command"
-#                     case = f"f'<{param}>' is not present in the command in {job}"
-#                     reject(general, specific, case)
-
-#     for projcet in projects:
-#         if "params" in project and not set(project["params"]) <= set(jobs):
-#             specific = "Project parameters must specify valid jobs"
-#             case = f"In {project} parameters {set(project['params'])} are not a subset of jobs: {set(jobs)}"
-#             reject(general, specific, case)
-
-#         if "params" in project:
-#             for job in project["params"]:
-#                 if not "params" in jobs[job] or not set(
-#                     project["params"]["job"]
-#                 ) <= set(jobs[job]["params"]):
-#                     specific = "Project parameters must exist in the declared job"
-#                     case = f"In {project} parameters for {job}: {set(project['params'])} are not a subset of jobs: {set(jobs[job]['params']) if 'params' in jobs[job] else None}"
-#                     reject(general, specific, case)
