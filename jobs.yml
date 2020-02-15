@@ -1,0 +1,23 @@
+jobs:
+  fmt:
+    function: ../multi_job/common/dev_actions/fmt:main
+    targets:
+      - multi_job
+
+  clean:
+    function: ../multi_job/common/prod_actions/clean:main
+    context:
+      clean_dirs:
+        - build
+        - dist
+        - docker_droplet.egg-info
+
+  pypi_upload:
+    function: ../multi_job/common/dev_actions/pypi_upload:main
+
+projects:
+  multi_job:
+    path: ../multi_job
+    context:
+      release_type: patch
+      twine_username: joellefkowitz

@@ -1,6 +1,6 @@
+import sys
 from dataclasses import dataclass
 from os.path import basename, dirname, normpath
-from sys import path
 from types import ModuleType
 
 
@@ -17,7 +17,7 @@ class PathControl:
     module_dir: str
 
     def __enter__(self) -> None:
-        path.append(self.module_dir)
+        sys.path.append(self.module_dir)
 
     def __exit__(self, type, value, tb) -> None:
-        path.remove(self.module_dir)
+        sys.path.remove(self.module_dir)

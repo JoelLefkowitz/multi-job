@@ -13,7 +13,7 @@ Job runner for multifaceted projects
 
 [license]: https://img.shields.io/github/license/joellefkowitz/multi-job
 
-[release]: https://img.shields.io/github/v/release/joellefkowitz/multi-job
+[release]: https://img.shields.io/github/v/tag/joellefkowitz/multi-job
 
 [pypi]: https://img.shields.io/pypi/v/multi-job (PyPi)
 [pypi_link]: https://pypi.org/project/multi-job
@@ -115,31 +115,33 @@ pip install multi-job
 
 ## Running tests
 
-Use pytest to invoke tests:
+Tests are not included in the package build. Clone the repo to include all the source files.
+
+To invoke tests:
 
 ```bash
-python -m pytest
+python setup.py test
 ```
 
 ### What is being tested
 
 Multi-job is behaviour driven. Every desired behaviour and every validation rule has a test.
 
-### Further docs
+## Docs
 
-For full documentation visit our [wiki](https://github.com/JoelLefkowitz/multi-job/wiki).
+Docs are not included in the package build. Clone the repo to include all the source files.
 
-## Development roadmap
+Full documentation can be generated locally:
 
-Work remaining for release 1.0.0:
+```bash
+python setup.py docs
+```
 
-* Validation functions
+To view the generated docs visit ./build/sphinx/html/multi_job/docs/modules.html:
 
-* Unittests
-
-* Complete docstrings
-
-* Wiki pages
+```bash
+open -a "Google Chrome" ./build/sphinx/html/multi_job/docs/modules.html
+```
 
 ## Contributing
 
@@ -147,7 +149,16 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository.
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository. 
+
+Bumpversion is used to version and tag changes.
+For example:
+
+```bash
+bumpversion patch
+```
+
+Releases are made on every major change.
 
 ## Author
 
@@ -162,3 +173,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 None yet!
+

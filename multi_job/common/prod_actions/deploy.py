@@ -1,49 +1,51 @@
 from random import random
 
-from multi_job.utils.functions import get_from_context, step
-from paramiko import SSHClient
-from scp import SCPClient
+from paramiko import sshclient
+from scp import scpclient
+
+from multi_job.utils.functions import get_from_context, step, success_msg
 
 
 def main(path: str, context: dict) -> str:
     (
-        IMAGE_NAME,
-        IMAGE_VERSION,
-        SSH_TARGET,
-        REMOTE_USER,
-        DOCKER_COMPOSE_FILE,
+        image_name,
+        version,
+        deploy_target,
+        remote_user,
+        docker_compose_file,
     ) = get_from_context(
         [
             "image_name",
-            "image_version",
-            "ssh_target",
+            "version",
+            "deploy_target",
             "remote_user",
             "docker_compose_file",
         ],
         context,
     )
 
-    TAGGED_IMAGE_NAME = f"{IMAGE_NAME}:{IMAGE_VERSION}"
-    IMAGE_REF = IMAGE_NAME + str(random()) + ".tar.gz"
+    tagged_image_name = f"{image_name}:{version}"
+    image_ref = image_name + str(random()) + ".tar.gz"
 
-    # Save docker image
-    step(["docker", "save", "-o", IMAGE_REF, TAGGED_IMAGE_NAME], path)
+    # save docker image
+    step(["docker", "save", "-o", image_ref, tagged_image_name], path)
 
-    ssh = SSHClient()
+    ssh = sshclient()
     ssh.load_system_host_keys()
-    ssh.connect(SSH_TARGET, username=REMOTE_USER)
+    ssh.connect(deploy_target, username=remote_user)
 
-    with SCPClient(ssh.get_transport()) as scp:
+    with scpclient(ssh.get_transport()) as scp:
 
-        # Scp docker compose file
-        scp.put(DOCKER_COMPOSE_FILE, "docker-compose.yml")
+        # scp docker compose file
+        scp.put(docker_compose_file, "docker-compose.yml")
 
-        # Scp docker image file
-        scp.put(IMAGE_REF, IMAGE_REF)
+        # scp docker image file
+        scp.put(image_ref, image_ref)
 
-    # Load docker image on the remote
+    # load docker image on the remote
     stdin, stdout, stderr = ssh.exec_command(
-        " ".join(["docker", "load", "-i", IMAGE_REF])
+        " ".join(["docker", "load", "-i", image_ref])
     )
-    stdin, stdout, stderr = ssh.exec_command(" ".join(["docker-compose", "up", "-d"]))
+    stdin, stdout, stderr = ssh.exec_command(" ".join(["docker-compose", "up", "--force-recreate", "-d"]))
     ssh.close()
+    return success_msg

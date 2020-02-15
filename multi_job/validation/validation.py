@@ -2,9 +2,9 @@
 Validation checks to be run sequentiatlly
 """
 
-# TODO Specify overrite rules:
+# TODO Specify overwrite rules:
 # - project > cli > job
-# - None is never used as an ovveride
+# - None is never used as an overide
 
 from dataclasses import dataclass
 from typing import Any, Callable, NoReturn, Optional
