@@ -43,7 +43,7 @@ with open("README.md", "r") as f:
 
 s = setup(
     name="multi-job",
-    version="0.9.22",
+    version="0.9.23",
     license="MIT",
     description="Job runner for multifaceted projects",
     long_description=long_description,
