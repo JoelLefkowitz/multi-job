@@ -1,6 +1,3 @@
-from distutils.core import Command, setup
-from unittest import TestLoader, TextTestRunner
-
 from setuptools import find_packages, setup
 from sphinx.setup_command import BuildDoc
 
@@ -17,24 +14,6 @@ class DocsCommand(BuildDoc):
         super().initialize_options()
         self.version = __version__
         self.config_dir = "./multi_job/docs"
-
-
-class TestsCommand(Command):
-    description = "Discover and run tests"
-    user_options = []
-
-    def initialize_options(self) -> None:
-        pass
-
-    def finalize_options(self) -> None:
-        pass
-
-    def run(self) -> None:
-        """
-        Discover and run tests        
-        """
-        suite = TestLoader().discover("./multi_job/tests")
-        TextTestRunner().run(suite)
 
 
 with open("README.md", "r") as f:
@@ -60,7 +39,7 @@ s = setup(
         "Sphinx>=2.4.1"
     ],
     entry_points={"console_scripts": ["multi-job=multi_job.main:entrypoint"]},
-    cmdclass={"docs": DocsCommand, "test": TestsCommand},
+    cmdclass={"docs": DocsCommand},
     python_requires=">= 3.6",
     author="Joel Lefkowitz",
     author_email="joellefkowitz@hotmail.com",

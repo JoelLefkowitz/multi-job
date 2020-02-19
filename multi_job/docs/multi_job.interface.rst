@@ -12,14 +12,6 @@ multi\_job.interface.formatters module
    :undoc-members:
    :show-inheritance:
 
-multi\_job.interface.interceptors module
-----------------------------------------
-
-.. automodule:: multi_job.interface.interceptors
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 multi\_job.interface.interface module
 -------------------------------------
 

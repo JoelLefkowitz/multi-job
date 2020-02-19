@@ -5,14 +5,20 @@ from .emojis import MUSHROOM, TOPHAT, CROWN, RICE_BALL
 from multi_job.models.exceptions import ArgumentMissing, StepError
 
 
-def get_from_context(keys: List[str], context: dict) -> Tuple[Any, ...]:
-    context_values = []
-    for key in keys:
-        try:
-            context_values.append(context[key])
-        except KeyError as e:
-            msg = f"Missing argument caught during runtime\nMissing context: {key}\n Key error: {e}"
-            raise ArgumentMissing(msg)
+def get_required_from_context(keys: List[str], context: dict) -> Tuple[Any, ...]:
+    missing_context = set(keys) - set(context.keys())
+    if missing_context:
+        msg = (
+            f"Missing non-optional arguments caught during runtime"
+            + f"\nMissing context: {list(missing_context)}"
+        )
+        raise ArgumentMissing(msg)
+    context_values = [context[key] for key in keys]
+    return context_values.pop() if len(context_values) == 1 else context_values
+
+
+def get_optional_from_context(keys: List[str], context: dict) -> Tuple[Any, ...]:
+    context_values = [context[key] if key in context else None for key in keys]
     return context_values.pop() if len(context_values) == 1 else context_values
 
 

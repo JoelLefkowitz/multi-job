@@ -2,17 +2,17 @@ jobs:
   fmt:
     function: dev_actions/fmt:main
     targets:
-      - app 
+      - app
       - server
 
   lint:
     command: "pylint ."
     targets: all
-  
+
   ping:
     command: "echo ping <pinger-name>"
     targets: all
-    context: 
+    context:
       pinger-name: Joel
 
   boot:
@@ -36,7 +36,7 @@ jobs:
 projects:
   app:
     path: ../app
-  
+
   server:
     path: ../server
     context:

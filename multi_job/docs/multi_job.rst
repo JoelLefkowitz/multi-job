@@ -10,6 +10,7 @@ Subpackages
    multi_job.interface
    multi_job.models
    multi_job.runtime
+   multi_job.tests
    multi_job.utils
    multi_job.validation
 

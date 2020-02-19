@@ -21,4 +21,3 @@ jobs:
 projects:
   multi_job:
     path: ../multi_job
-    

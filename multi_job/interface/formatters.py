@@ -29,5 +29,5 @@ def fmt_options(options):
     Returns:
         [type]: [description]
     """
-    lines = [f"    --{opt}" for opt, desc in options]
+    lines = [f"    --{opt}" for opt in options]
     return "\n" + "\n".join(lines)

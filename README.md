@@ -4,29 +4,23 @@ Job runner for multifaceted projects
 
 ## Status
 
-| Source  | Shields  |
-|-----|--------------|
-| Project  | ![license][license] ![release][release]  |
-| Publishers  | [![pypi][pypi]][pypi_link]    |
-| Downloads  | ![pypi_downloads][pypi_downloads] |
-| Raised  | [![issues][issues]][issues_link] [![pulls][pulls]][pulls_link]  |
+| Source     | Shields                                                        |
+| ---------- | -------------------------------------------------------------- |
+| Project    | ![license][license] ![release][release]                        |
+| Publishers | [![pypi][pypi]][pypi_link]                                     |
+| Downloads  | ![pypi_downloads][pypi_downloads]                              |
+| Raised     | [![issues][issues]][issues_link] [![pulls][pulls]][pulls_link] |
 
 [license]: https://img.shields.io/github/license/joellefkowitz/multi-job
-
 [release]: https://img.shields.io/github/v/tag/joellefkowitz/multi-job
-
-[pypi]: https://img.shields.io/pypi/v/multi-job (PyPi)
+[pypi]: https://img.shields.io/pypi/v/multi-job "PyPi"
 [pypi_link]: https://pypi.org/project/multi-job
-
 [python_version]: https://img.shields.io/pypi/pyversions/multi-job
-
 [pypi_downloads]: https://img.shields.io/pypi/dw/multi-job
-
-[issues]: https://img.shields.io/github/issues/joellefkowitz/multi-job (Issues)
+[issues]: https://img.shields.io/github/issues/joellefkowitz/multi-job "Issues"
 [issues_link]: https://github.com/JoelLefkowitz/multi-job/issues
-
-[pulls]: https://img.shields.io/github/issues-pr/joellefkowitz/multi-job (Pull requests)
-[pulls_link]: https://github.com/JoelLefkowitz/multi-job/pulls  
+[pulls]: https://img.shields.io/github/issues-pr/joellefkowitz/multi-job "Pull requests"
+[pulls_link]: https://github.com/JoelLefkowitz/multi-job/pulls
 
 ## Motivation
 
@@ -43,7 +37,7 @@ jobs:
   lint:
     command: "pylint ."
     targets: all
-  
+
   bump:
     command: "bumpversion <bump-type>"
     skips: app
@@ -70,20 +64,19 @@ jobs:
 projects:
   app:
     path: ../app
-  
+
   server:
     path: ../server
     context:
       bump-type: minor
-  
+
   models:
     path: ../models
-  
+
 routines:
   dev:
     - fmt
     - lint
-
 ```
 
 Additionally, automatic cli generation tools shouldn't need separate configuration:
@@ -119,37 +112,6 @@ Install from pypi:
 pip install multi-job
 ```
 
-<!-- ## Design
-
-## Validation rules
-
-* override rules
-
-* Top level structure
-* The configuration must not be blank
-* The configuration must be a dictionary
-* The configuration's top level must contain only 'jobs', 'projects' or 'routines'
-* Jobs, projects and routines' structure
-* Jobs, projects and routines must be dictionaries
-* Each job and project must be a dictionary
-* Each routine must be a list
-* Jobs, projects and routines must have unique names
-* Project fields
-* Projects must have a path field
-* A project's path field must be a string
-* A project's path field must be resolvable
-* A project context field can only be a dictionary
-* Job fields
-* Jobs must have a command xor a function field
-* A job's command field must be a string
-* A job's function field must be a string
-* A job's function field must be resolvable
-* Jobs may only have a targets xor a skips field
-* A job's targets or skips field must be a list or 'all
-* A job's targets or skips field must contain project names or 'all'
-* Routine fields
-* Routines may only contain job names or 'all' -->
-
 ## Running tests
 
 Tests are not included in the package build. Clone the repo to include all the source files.
@@ -157,7 +119,7 @@ Tests are not included in the package build. Clone the repo to include all the s
 To invoke tests:
 
 ```bash
-python setup.py test
+python -m unittest
 ```
 
 ### What is being tested
@@ -182,9 +144,9 @@ open -a "Google Chrome" ./build/sphinx/html/multi_job/docs/modules.html
 
 ## Development roadmap
 
-* Finish writting validation functions &rarr; v0.11.0
-* Write unittests &rarr; v0.12.0
-* Fill in missing docstrings &rarr; v1.0.0
+- Finish writting validation functions &rarr; v0.11.0
+- Write unittests &rarr; v0.12.0
+- Fill in missing docstrings &rarr; v1.0.0
 
 ## Contributing
 
@@ -192,7 +154,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository. 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository.
 
 Bumpversion is used to version and tag changes.
 For example:
@@ -205,7 +167,7 @@ Releases are made on every major change.
 
 ## Author
 
-* **Joel Lefkowitz** - *Initial work* - [JoelLefkowitz](https://github.com/JoelLefkowitz)
+- **Joel Lefkowitz** - _Initial work_ - [JoelLefkowitz](https://github.com/JoelLefkowitz)
 
 See also the list of contributors who participated in this project.
 
@@ -216,4 +178,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 None yet!
-

@@ -4,14 +4,11 @@
 Entrypoint for multi-job
 """
 
-import sys
-from os import getcwd, path
+import os, sys
 
-# If packaged multi_job will be scoped, otherwise append parent path.
-package_directory = path.realpath(path.join(__file__, "../.."))
+package_directory = os.path.realpath(os.path.join(__file__, "../.."))
 sys.path.append(package_directory)
 
-from multi_job.interface.interceptors import intercept
 from multi_job.interface.interface import interface_factory
 from multi_job.models.exceptions import ConfigNotGiven
 from multi_job.models.jobs import Job
@@ -20,7 +17,7 @@ from multi_job.models.routines import Routine
 from multi_job.runtime.resolver import resolve
 from multi_job.runtime.runtime import run
 from multi_job.utils.strings import join_paths
-from multi_job.validation.validation import validate
+from multi_job.validation.validate import validate
 
 
 def entrypoint() -> None:
@@ -31,8 +28,8 @@ def entrypoint() -> None:
                 "You must supply a configuration path e.g. dev <config_path>"
             )
         )
-    config_path = join_paths(getcwd(), sys.argv[1])
-    if not path.exists(config_path):
+    config_path = join_paths(os.getcwd(), sys.argv[1])
+    if not os.path.exists(config_path):
         raise (ConfigNotGiven("You must supply a resolvable configuration path"))
     main(config_path)
 
@@ -48,8 +45,7 @@ def main(config_path: str) -> None:
     jobs = Job.from_config(config["jobs"]) if "jobs" in config else []
     projects = Project.from_config(config["projects"]) if "projects" in config else []
     routines = Routine.from_config(config["routines"]) if "routines" in config else []
-    interface = interface_factory(jobs, projects, routines)
-    cli_params = intercept(interface)
+    cli_params = interface_factory(jobs, projects, routines)
     processes, options = resolve(jobs, projects, routines, cli_params, config_path)
     run(processes, options)
 
