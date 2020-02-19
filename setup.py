@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 from sphinx.setup_command import BuildDoc
 
-__version__ = "0.10.6"
+__version__ = "0.10.7"
 
 
 class DocsCommand(BuildDoc):
