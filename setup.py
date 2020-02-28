@@ -37,7 +37,7 @@ s = setup(
         "paramiko>=2.7.1",
         "scp>=0.13.2",
         "Sphinx>=2.4.1",
-        "art>=4.5"
+        "art>=4.5",
     ],
     entry_points={"console_scripts": ["multi-job=multi_job.main:entrypoint"]},
     cmdclass={"docs": DocsCommand},

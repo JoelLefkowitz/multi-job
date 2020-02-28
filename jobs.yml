@@ -1,11 +1,11 @@
 jobs:
   fmt:
-    function: dev_actions/fmt:main
+    function: fmt:main
     targets:
       - multi_job
 
   clean:
-    function: prod_actions/clean:main
+    function: clean:main
     context:
       clean_dirs:
         - build
@@ -13,11 +13,12 @@ jobs:
         - multi_job.egg-info
 
   pypi-upload:
-    function: prod_actions/pypi_upload:main
+    function: pypi_upload:main
     context:
       release_type: patch
       twine_username: joellefkowitz
 
 projects:
-  multi_job:
-    path: ../multi_job
+  projects:
+    multi_job:
+      path: ../multi_job

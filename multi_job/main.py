@@ -43,8 +43,16 @@ def main(config_path: str) -> None:
     """
     config = validate(config_path)
     jobs = Job.from_config(config["jobs"]) if "jobs" in config else []
-    projects = Project.from_config(config["projects"]) if "projects" in config else []
-    routines = Routine.from_config(config["routines"]) if "routines" in config else []
+    projects = (
+        Project.from_config(config["projects"])
+        if "projects" in config and config["projects"]
+        else []
+    )
+    routines = (
+        Routine.from_config(config["routines"])
+        if "routines" in config and config["routines"]
+        else []
+    )
     cli_params = interface_factory(jobs, projects, routines)
     processes, options = resolve(jobs, projects, routines, cli_params, config_path)
     run(processes, options)
