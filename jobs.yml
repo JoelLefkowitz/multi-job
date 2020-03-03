@@ -1,8 +1,15 @@
 jobs:
   fmt:
-    function: fmt:main
+    command: black . --exclude venv
     targets:
-      - multi_job
+      - all
+
+  yenv:
+    function: yenv:main
+    context:
+      yenv-file: ../environment.yml
+      env-targets:
+        - multi-job
 
   clean:
     function: clean:main
@@ -10,7 +17,7 @@ jobs:
       clean_dirs:
         - build
         - dist
-        - multi_job.egg-info
+        - multi-job.egg-info
 
   pypi-upload:
     function: pypi_upload:main
@@ -18,7 +25,13 @@ jobs:
       release_type: patch
       twine_username: joellefkowitz
 
+
 projects:
-  projects:
-    multi_job:
-      path: ../multi_job
+  multi-job:
+    path: ../multi-job
+
+routines:
+  release:
+    - fmt
+    - clean
+    - pypi_upload

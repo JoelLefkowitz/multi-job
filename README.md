@@ -1,4 +1,4 @@
-# Multi-job
+# multi-job
 
 Job runner for multifaceted projects
 
@@ -22,131 +22,49 @@ Job runner for multifaceted projects
 [pulls]: https://img.shields.io/github/issues-pr/joellefkowitz/multi-job "Pull requests"
 [pulls_link]: https://github.com/JoelLefkowitz/multi-job/pulls
 
-## Motivation
+### Installing
 
-Configuring jobs to run accross multiple directories should be as easy as writting a yaml file:
-
-```yml
-jobs:
-  fmt:
-    function: dev_actions/fmt:main
-    targets:
-      - app
-      - server
-
-  lint:
-    command: "pylint ."
-    targets: all
-
-  bump:
-    command: "bumpversion <bump-type>"
-    skips: app
-    context:
-      bump-type: patch
-
-  boot:
-    script: ../boot.bash
-
-  clean:
-    function: prod_actions/clean:main
-    context:
-      clean_dirs:
-        - build
-        - dist
-        - multi_job.egg-info
-
-  pypi-upload:
-    function: prod_actions/pypi_upload:main
-    context:
-      release_type: patch
-      twine_username: joellefkowitz
-
-projects:
-  app:
-    path: ../app
-
-  server:
-    path: ../server
-    context:
-      bump-type: minor
-
-  models:
-    path: ../models
-
-routines:
-  dev:
-    - fmt
-    - lint
-```
-
-Additionally, automatic cli generation tools shouldn't need separate configuration:
-
-```bash
-multi-job config.yml
-
-Usage:
-    <Workspace> <config_path> [options] fmt
-    <Workspace> <config_path> [options] lint
-    <Workspace> <config_path> [options] bump [<bump-type>]
-    <Workspace> <config_path> [options] boot
-    <Workspace> <config_path> [options] clean [<clean_dirs>]
-    <Workspace> <config_path> [options] pypi-upload [<release_type> <twine_username>]
-    <Workspace> <config_path> [options] dev
-```
-
-## Usage
-
-```bash
-multi-job config.yml lint --check
-
-⚡ Multi Job ⚡
-Plan:
-Job: lint, project: Local
-```
-
-## Installing
-
-Install from pypi:
+Install the package from pypi:
 
 ```bash
 pip install multi-job
+```
+
+Alternatively, you can clone the repo:
+
+```bash
+git clone https://github.com/JoelLefkowitz/multi-job
 ```
 
 ## Running tests
 
 Tests are not included in the package build. Clone the repo to include all the source files.
 
-To invoke tests:
-
 ```bash
-python -m unittest
+pytest tests
 ```
-
-### What is being tested
-
-Multi-job is behaviour driven. Desired model behaviours and validation rules are prescribed unittests.
 
 ## Docs
 
 Docs are not included in the package build. Clone the repo to include all the source files.
 
-Full documentation can be generated locally:
+To automatically update the documentation generation configuration:
 
 ```bash
-python setup.py docs
+python setup.py updateDocs
 ```
 
-To view the generated docs visit ./build/sphinx/html/multi_job/docs/modules.html:
+Documentation can be generated locally:
 
 ```bash
-open -a "Google Chrome" ./build/sphinx/html/multi_job/docs/modules.html
+python setup.py generateDocs
 ```
 
-## Development roadmap
+Then to view the generated docs visit ./build/sphinx/html/multi-job/docs/modules.html:
 
-- Finish writting validation functions &rarr; v0.11.0
-- Write unittests &rarr; v0.12.0
-- Fill in missing docstrings &rarr; v1.0.0
+```bash
+open -a "Google Chrome" ./build/sphinx/html/multi-job/docs/modules.html
+```
 
 ## Contributing
 
@@ -160,21 +78,21 @@ Bumpversion is used to version and tag changes.
 For example:
 
 ```bash
-bumpversion patch
+bump2version patch
 ```
 
 Releases are made on every major change.
 
 ## Author
 
-- **Joel Lefkowitz** - _Initial work_ - [JoelLefkowitz](https://github.com/JoelLefkowitz)
+- **Joel Lefkowitz** - _Initial work_ - [Joel Lefkowitz](JoelLefkowitz)
 
 See also the list of contributors who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file. for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
-None yet!
+None

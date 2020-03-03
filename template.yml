@@ -1,0 +1,12 @@
+common: True
+package: True
+
+name: multi-job
+version: 0.10.10
+description: Job runner for multifaceted projects
+
+author: Joel Lefkowitz
+author_email: joellefkowitz@hotmail.com
+author_github: JoelLefkowitz
+github_url: https://github.com/JoelLefkowitz/multi-job
+twine_username: joellefkowitz 
