@@ -2,7 +2,7 @@ common: True
 package: True
 
 name: multi-job
-version: 0.10.12
+version: 0.10.13
 description: Job runner for multifaceted projects
 
 author: Joel Lefkowitz
