@@ -53,7 +53,7 @@ s = setup(
         "emoji>=0.5.4",
         "ruamel.yaml>=0.16.10",
     ],
-    entry_points={"console_scripts": ["multi-job=multi-job.main:entrypoint"]},
+    entry_points={"console_scripts": ["multi-job=multi_job.main:entrypoint"]},
     cmdclass={"updateDocs": UpdateDocs, "generateDocs": GenerateDocs},
     python_requires=">= 3.6",
     author="Joel Lefkowitz",
