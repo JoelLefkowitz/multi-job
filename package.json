@@ -1,6 +1,6 @@
 {
   "name": "multi-job",
-  "version": "0.10.14",
+  "version": "0.10.15",
   "description": "Job runner for multifaceted projects",
   "main": "index.js",
   "scripts": {
