@@ -5,6 +5,12 @@ jobs:
       - pydocstyle
       - mypy .
 
+  clean:
+    script: clean_build_dirs.py
+    option_arguments:
+      --project-dir: .
+      --target-dirs: build dist templ8.egg-info docs/api
+
   format:
     commands:
       - isort --apply -sl
@@ -21,10 +27,21 @@ jobs:
   tests:
     command: pytest --cov yummy_cereal --html .test_report.html --self-contained-html
 
+  prototype-unit-tests:
+    command: python3 -m PyTestStub.GenerateUnitTests .
+  
+  prototype-bdd-tests:
+    script: prototype-bdd-tests.py
+    positional_arguments:
+      - tests/behaviour_tests
+
+  missing-docstrings:
+    command: find multi_job -type f -name "*.py" | xargs pylint --disable=all --enable=C0114,C0115,C0116
+  
   release:
     commands:
       - bump2version <release_type>
-      - python setup.py sdist bdist_wheel
+      - python3 setup.py sdist bdist_wheel
       - twine upload dist/* --username <twine_username>
     context:
       release_type: patch
@@ -36,6 +53,11 @@ routines:
     - lint
     - format
 
+  pre-release:
+    - prototype-bdd-tests
+    - prototype-unit-tests
+    - missing-docstrings
+
 meta:
-  script_root: ../
-  project_root: ../../
+  project_root: ../
+  scripts_root: ../scripts/
