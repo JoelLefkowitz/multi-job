@@ -36,7 +36,7 @@ def remove_chars(string: str, chars: List[str]) -> str:
 
 def has_prefix(string: str, prefix: str) -> bool:
     """
-    TODO
+    TODO write docstring
     
     Args:
         string (str): [description]

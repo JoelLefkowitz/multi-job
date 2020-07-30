@@ -4,6 +4,11 @@
 Entrypoint for multi-job
 """
 
+# TODO buildbot step factory from job
+# TODO buildbot steps factory from routines
+# TODO steps factory integrate buildbots secrets
+# TODO Yummy cereal integration
+
 import os, sys
 
 package_directory = os.path.realpath(os.path.join(__file__, "../.."))

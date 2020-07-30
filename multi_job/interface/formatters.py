@@ -7,7 +7,7 @@ from sys import argv
 
 def fmt_uses(uses):
     """
-    TODO
+    TODO write docstring
     
     Args:
         uses ([type]): [description]
@@ -21,7 +21,7 @@ def fmt_uses(uses):
 
 def fmt_options(options):
     """
-    TODO
+    TODO write docstring
     
     Args:
         options ([type]): [description]

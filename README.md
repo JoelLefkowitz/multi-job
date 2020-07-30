@@ -1,8 +1,7 @@
 # multi-job
 
 Job runner for multifaceted projects
-
-## Status
+### Status
 
 | Source     | Shields                                                        |
 | ---------- | -------------------------------------------------------------- |
@@ -11,70 +10,78 @@ Job runner for multifaceted projects
 | Downloads  | ![pypi_downloads][pypi_downloads]                              |
 | Raised     | [![issues][issues]][issues_link] [![pulls][pulls]][pulls_link] |
 
-[license]: https://img.shields.io/github/license/joellefkowitz/multi-job
-[release]: https://img.shields.io/github/v/tag/joellefkowitz/multi-job
-[pypi]: https://img.shields.io/pypi/v/multi-job "PyPi"
-[pypi_link]: https://pypi.org/project/multi-job
-[python_version]: https://img.shields.io/pypi/pyversions/multi-job
-[pypi_downloads]: https://img.shields.io/pypi/dw/multi-job
-[issues]: https://img.shields.io/github/issues/joellefkowitz/multi-job "Issues"
+<!--- Table links --->
+
+[license]: https://img.shields.io/github/license/JoelLefkowitz/multi-job
+[release]: https://img.shields.io/github/v/tag/JoelLefkowitz/multi-job
+[pypi_downloads]: https://img.shields.io/pypi/dw/multi_job
+
+[pypi]: https://img.shields.io/pypi/v/multi_job "PyPi"
+[pypi_link]: https://pypi.org/project/multi_job
+
+[issues]: https://img.shields.io/github/issues/JoelLefkowitz/multi-job "Issues"
 [issues_link]: https://github.com/JoelLefkowitz/multi-job/issues
-[pulls]: https://img.shields.io/github/issues-pr/joellefkowitz/multi-job "Pull requests"
+
+[pulls]: https://img.shields.io/github/issues-pr/JoelLefkowitz/multi-job "Pull requests"
 [pulls_link]: https://github.com/JoelLefkowitz/multi-job/pulls
+
+### Usage
+:purple_heart: Under costruction - This is a pre-release :purple_heart:
 
 ### Installing
 
-Install the package from pypi:
+To install the package from pypi:
 
 ```bash
-pip install multi-job
+pip install multi_job
 ```
 
-Alternatively, you can clone the repo:
+Alternatively, you can clone the repo and build the package locally.
+
+### Docs
+
+Additional details are available in the [full documentation](https://multi-job.readthedocs.io/en/latest/).
+
+To generate the documentation locally:
 
 ```bash
-git clone https://github.com/JoelLefkowitz/multi-job
+multi-job docs
 ```
 
-## Running tests
+### Tests
 
-Tests are not included in the package build. Clone the repo to include all the source files.
+Unit tests and behaviour tests are written with the pytest framework.
+
+To run tests:
 
 ```bash
-pytest tests
+multi-job tests
 ```
 
-## Docs
+Additionally, an html report will be saved to the local directory.
 
-Docs are not included in the package build. Clone the repo to include all the source files.
+### Buildbot
 
-To automatically update the documentation generation configuration:
+To run the buildbot server:
 
 ```bash
-python setup.py updateDocs
+cd ci
+docker-compose up -d
 ```
 
-Documentation can be generated locally:
+* Builders are configured in master.cfg.
+* Build masters read their configuration from https://github.com/JoelLefkowitz/multi-job/multi_job/ci/master.cfg
+* Worker and database passwords are configured as environment variables
 
-```bash
-python setup.py generateDocs
-```
-
-Then to view the generated docs visit ./build/sphinx/html/multi-job/docs/modules.html:
-
-```bash
-open -a "Google Chrome" ./build/sphinx/html/multi-job/docs/modules.html
-```
-
-## Contributing
+### Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
-## Versioning
+### Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the tags on this repository.
+[SemVer](http://semver.org/) is used for versioning. For a list of versions available, see the tags on this repository.
 
-Bumpversion is used to version and tag changes.
+Bump2version is used to version and tag changes.
 For example:
 
 ```bash
@@ -83,16 +90,17 @@ bump2version patch
 
 Releases are made on every major change.
 
-## Author
 
-- **Joel Lefkowitz** - _Initial work_ - [Joel Lefkowitz](JoelLefkowitz)
+### Author
+
+- **Joel Lefkowitz** - _Initial work_ - [Joel Lefkowitz](https://github.com/JoelLefkowitz)
 
 See also the list of contributors who participated in this project.
 
-## License
+### License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
+### Acknowledgments
 
-None
+None yet!

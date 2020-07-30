@@ -18,7 +18,7 @@ def main(path: str, context: dict) -> str:
         ["image_name", "version", "deploy_target"], context
     )
     remote_user, docker_compose_file = get_optional_from_context(
-        ["remote_user", "docker_compose_file"], context
+        ["remote_use r", "docker_compose_file"], context
     )
 
     if not remote_user:
