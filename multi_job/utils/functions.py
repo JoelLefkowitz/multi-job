@@ -1,8 +1,17 @@
 from subprocess import run
-from typing import Any, List, Tuple
-from .colours import blue, fail
-from .emojis import MUSHROOM, TOPHAT, CROWN, RICE_BALL
-from multi_job.models.exceptions import ArgumentMissing, StepError
+from typing import Any
+from typing import List
+from typing import Tuple
+
+from multi_job.models.exceptions import ArgumentMissing
+from multi_job.models.exceptions import StepError
+
+from .colours import blue
+from .colours import fail
+from .emojis import CROWN
+from .emojis import MUSHROOM
+from .emojis import RICE_BALL
+from .emojis import TOPHAT
 
 
 def get_required_from_context(keys: List[str], context: dict) -> Tuple[Any, ...]:

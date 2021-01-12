@@ -1,17 +1,27 @@
-import os, sys
-
-package_directory = os.path.realpath(os.path.join(__file__, "../.."))
-sys.path.append(package_directory)
+import os
+import sys
+from operator import itemgetter
+from typing import List
+from typing import Mapping
 
 from multi_job.interface.interface import interface_factory
 from multi_job.models.exceptions import ConfigNotGiven
 from multi_job.models.jobs import Job
+from multi_job.models.processes import Process
 from multi_job.models.projects import Project
 from multi_job.models.routines import Routine
 from multi_job.runtime.resolver import resolve
 from multi_job.runtime.runtime import run
+from multi_job.utils.colours import blue
+from multi_job.utils.colours import green
+from multi_job.utils.emojis import MUSHROOM
+from multi_job.utils.emojis import TOPHAT
+from multi_job.utils.emojis import ZAP
 from multi_job.utils.strings import join_paths
-from multi_job.validation.validate import validate
+
+package_directory = os.path.realpath(os.path.join(__file__, "../.."))
+sys.path.append(package_directory)
+
 
 
 def entrypoint() -> None:
@@ -55,12 +65,7 @@ def main(config_path: str) -> None:
 if __name__ == "__main__":
     entrypoint()
 
-from operator import itemgetter
-from typing import List, Mapping
 
-from multi_job.models.processes import Process
-from multi_job.utils.colours import blue, green
-from multi_job.utils.emojis import MUSHROOM, TOPHAT, ZAP
 
 
 def run(processes: List[Process], options: Mapping[str, bool]) -> None:

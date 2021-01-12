@@ -1,10 +1,18 @@
 from sys import argv
 from typing import List
+from typing import Mapping
+from typing import Tuple
+
 from art import text2art
 from docopt import docopt
+
 from multi_job.models.jobs import Job
+from multi_job.models.processes import Process
 from multi_job.models.projects import Project
 from multi_job.models.routines import Routine
+from multi_job.utils.strings import has_prefix
+from multi_job.utils.tags import is_tagged
+from multi_job.utils.tags import strip_tags
 
 
 def interface_factory(
@@ -50,14 +58,7 @@ def fmt_options(options):
     lines = [f"    --{opt}" for opt in options]
     return "\n" + "\n".join(lines)
 
-from typing import List, Mapping, Tuple
 
-from multi_job.models.jobs import Job
-from multi_job.models.processes import Process
-from multi_job.models.projects import Project
-from multi_job.models.routines import Routine
-from multi_job.utils.strings import has_prefix
-from multi_job.utils.tags import is_tagged, strip_tags
 
 
 def resolve(

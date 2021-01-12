@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from typing import List, Type, TypeVar
+from typing import List
+from typing import Type
+from typing import TypeVar
 
 from .jobs import Job
 

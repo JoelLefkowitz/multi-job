@@ -1,5 +1,8 @@
-from dataclasses import dataclass, field
-from typing import List, Type, TypeVar
+from dataclasses import dataclass
+from dataclasses import field
+from typing import List
+from typing import Type
+from typing import TypeVar
 
 from multi_job.utils.strings import join_paths
 

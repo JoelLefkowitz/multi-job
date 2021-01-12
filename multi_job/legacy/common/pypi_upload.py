@@ -1,4 +1,6 @@
-from multi_job.utils.functions import step, get_required_from_context, success_msg
+from multi_job.utils.functions import get_required_from_context
+from multi_job.utils.functions import step
+from multi_job.utils.functions import success_msg
 
 
 def main(path: str, context: dict) -> str:

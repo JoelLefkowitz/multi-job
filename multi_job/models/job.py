@@ -2,11 +2,18 @@
 Project, Job, Routine and Subprocess classes
 """
 
-from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
-from typing import Any, Callable, List, Union
+from abc import ABC
+from abc import abstractmethod
+from dataclasses import dataclass
+from dataclasses import field
+from typing import Any
+from typing import Callable
+from typing import List
+from typing import Union
 
-from multi_job.models.processes import CommandProcess, FunctionProcess, Process
+from multi_job.models.processes import CommandProcess
+from multi_job.models.processes import FunctionProcess
+from multi_job.models.processes import Process
 from multi_job.models.projects import Project
 from multi_job.utils.dicts import override
 from multi_job.utils.imports import from_path

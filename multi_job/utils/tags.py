@@ -3,7 +3,8 @@ Utility methods for '<element>' style tags
 """
 
 import re
-from typing import List, Mapping
+from typing import List
+from typing import Mapping
 
 from multi_job.models.exceptions import ArgumentMissing
 
